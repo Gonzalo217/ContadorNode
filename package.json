@@ -1,0 +1,12 @@
+{
+  "name": "dias-sin-alcohol",
+  "version": "1.0.0",
+  "description": "Contador de días sin alcohol para Gonzalo",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

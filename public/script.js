@@ -64,73 +64,10 @@ function mainRender() {
     motivDiv.textContent = "";
     motivDiv.classList.remove('visible');
   }
-  document.getElementById('fecha-label').textContent = "Desde el 21/07/2025";
+  document.getElementById('fecha-label').textContent = "Desde el 27/07/2025";
   fraseDiv.style.animation = "none";
   void fraseDiv.offsetWidth;
   fraseDiv.style.animation = null;
 }
 mainRender();
 setInterval(mainRender, 60 * 1000);
-
-// --- Caset retro player ---
-const audio = document.getElementById('caset-audio');
-const playBtn = document.getElementById('caset-play');
-const playIcon = document.getElementById('caset-play-icon');
-const wheels = document.querySelectorAll('.caset-wheel');
-
-let isPlaying = false;
-let wheelInterval = null;
-
-function animateWheels(on) {
-  wheels.forEach((wheel, idx) => {
-    wheel.style.transition = "transform 0.09s linear";
-    if (on) {
-      wheel.dataset.angle = wheel.dataset.angle || "0";
-      if (!wheel._timer) {
-        wheel._timer = setInterval(() => {
-          let a = Number(wheel.dataset.angle);
-          a = (a + (idx % 2 == 0 ? 8 : -10)) % 360;
-          wheel.dataset.angle = a.toString();
-          wheel.style.transform = `rotate(${a}deg)`;
-        }, 90 + idx*15);
-      }
-    } else {
-      if (wheel._timer) clearInterval(wheel._timer);
-      wheel._timer = null;
-    }
-  });
-}
-
-function playPauseCaset() {
-  if (audio.paused) {
-    audio.play();
-  } else {
-    audio.pause();
-  }
-}
-playBtn.onclick = playPauseCaset;
-audio.addEventListener('play', () => {
-  isPlaying = true;
-  playIcon.textContent = '⏸️';
-  animateWheels(true);
-});
-audio.addEventListener('pause', () => {
-  isPlaying = false;
-  playIcon.textContent = '▶️';
-  animateWheels(false);
-});
-audio.addEventListener('ended', () => {
-  playIcon.textContent = '▶️';
-  animateWheels(false);
-});
-document.addEventListener('keydown', e => {
-  if (document.activeElement.tagName !== "INPUT" && (e.code === "Space" || e.key === " ")) {
-    playPauseCaset();
-    e.preventDefault();
-  }
-});
-
-// Autoplay solo tras interacción (política navegador)
-playBtn.addEventListener('touchstart', () => {
-  if (audio.paused) audio.play();
-});

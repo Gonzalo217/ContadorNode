@@ -40,7 +40,7 @@ const MOTIVATION = {
   30: "¡30 días! ¡Celebrá tu logro, seguí adelante!"
 };
 function getStartDate() {
-  return new Date(2025, 6, 21); // 21 de julio de 2025 (mes 6)
+  return new Date(2025, 7, 27); // 27 de julio de 2025 (mes 7) actualizacion feche
 }
 function getDaysSince(date) {
   const now = new Date();
